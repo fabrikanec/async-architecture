@@ -1,0 +1,21 @@
+spring:
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:tc:postgresql:10-alpine:///dfa
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  flyway:
+    enabled: true
+
+
+crypto-service:
+  url: http://crypto-service-emulator
+
+account-service:
+  url: http://account-service
+
+kyc-service:
+  url: http://kyc-service-emulator
