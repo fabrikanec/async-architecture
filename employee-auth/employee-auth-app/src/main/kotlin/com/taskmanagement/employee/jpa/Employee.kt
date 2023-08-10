@@ -2,14 +2,20 @@ package com.taskmanagement.employee.jpa
 
 import com.taskmanagement.employee.EmployeeRole
 import com.taskmanagement.employee.auth.util.db.PostgreSqlType
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import org.hibernate.Hibernate
 import org.hibernate.annotations.Type
+import org.hibernate.annotations.TypeDef
+import org.hibernate.annotations.TypeDefs
 import java.time.Instant
 import java.util.UUID
 import javax.persistence.Entity
 import javax.persistence.Id
 
 @Entity
+@TypeDefs(
+    TypeDef(name = PostgreSqlType.JSONB_TYPE, typeClass = JsonBinaryType::class)
+)
 open class Employee(
     @Id
     open val id: UUID = UUID.randomUUID(),

@@ -2,12 +2,7 @@ package com.taskmanagement.employee.auth.jwt
 
 import com.taskmanagement.employee.auth.exception.Base64FormatErrorException
 import com.taskmanagement.employee.auth.exception.Checks
-import com.taskmanagement.employee.auth.exception.LoginDataAlreadySpentException
-import com.taskmanagement.employee.auth.exception.LoginDataNotFoundException
-import com.taskmanagement.employee.auth.exception.LoginDataNotValidException
 import com.taskmanagement.employee.auth.exception.ParameterIsNotPresentException
-import com.taskmanagement.employee.auth.login.LoginDataService
-import com.taskmanagement.employee.auth.login.LoginDataSpendResult
 import com.taskmanagement.employee.auth.util.generateHash
 import com.taskmanagement.employee.service.EmployeeService
 import org.slf4j.debug
@@ -23,27 +18,23 @@ import org.springframework.security.oauth2.provider.token.AbstractTokenGranter
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices
 import org.springframework.util.Base64Utils
 import java.net.URLDecoder
-import java.time.OffsetDateTime
 
 class JwtTokenGranter private constructor(
     tokenServices: AuthorizationServerTokenServices,
     clientDetailsService: ClientDetailsService,
     requestFactory: OAuth2RequestFactory,
     private val employeeService: EmployeeService,
-    private val loginDataService: LoginDataService,
 ) : AbstractTokenGranter(tokenServices, clientDetailsService, requestFactory, PASSWORD_GRANT_TYPE) {
     private val log by lazyLogger(JwtTokenGranter::class)
 
     constructor(
         endpointsConfigurer: AuthorizationServerEndpointsConfigurer,
         employeeService: EmployeeService,
-        loginDataService: LoginDataService,
     ) : this(
         endpointsConfigurer.tokenServices,
         endpointsConfigurer.clientDetailsService,
         endpointsConfigurer.oAuth2RequestFactory,
         employeeService,
-        loginDataService,
     )
 
     override fun getOAuth2Authentication(
@@ -60,7 +51,6 @@ class JwtTokenGranter private constructor(
     private fun buildUserAuth(params: Map<String, String>): UsernamePasswordAuthenticationToken =
         UsernamePasswordAuthenticationToken(
             userPrincipal(
-                data = dataFromParamsOrThrow(params),
                 username = loginFromParamsOrThrow(params),
                 password = passwordFromParamsOrThrow(params),
             ),
@@ -95,11 +85,9 @@ class JwtTokenGranter private constructor(
         }
 
     private fun userPrincipal(
-        data: ByteArray,
         username: String,
         password: String,
     ): EmployeePrincipal {
-        spentLoginDataOrThrow(data, OffsetDateTime.now())
 
         val base64Password = generateHash(password = password)
 
@@ -130,15 +118,4 @@ class JwtTokenGranter private constructor(
         private fun String.decodedUrl(): String =
             URLDecoder.decode(this, Charsets.UTF_8.name())
     }
-
-    private fun spentLoginDataOrThrow(
-        data: ByteArray,
-        dateTime: OffsetDateTime,
-    ) =
-        when (val spendResult = loginDataService.spend(data, dateTime)) {
-            is LoginDataSpendResult.Spent -> spendResult.loginData
-            is LoginDataSpendResult.Error.NotFound -> throw LoginDataNotFoundException
-            is LoginDataSpendResult.Error.NotValid -> throw LoginDataNotValidException
-            is LoginDataSpendResult.Error.AlreadySpent -> throw LoginDataAlreadySpentException
-        }
 }
