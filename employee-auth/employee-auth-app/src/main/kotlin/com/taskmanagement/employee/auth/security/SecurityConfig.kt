@@ -1,6 +1,7 @@
 package com.taskmanagement.employee.auth.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.taskmanagement.employee.service.EmployeeService
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -12,10 +13,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.core.authority.AuthorityUtils
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
 import javax.servlet.Filter
+
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +28,7 @@ import javax.servlet.Filter
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 class SecurityConfig(
     private val objectMapper: ObjectMapper,
+    private val employeeService: EmployeeService,
 ) : WebSecurityConfigurerAdapter() {
     @Bean
     fun passwordEncoder() =
@@ -50,6 +56,14 @@ class SecurityConfig(
             .authenticationProvider(authenticationProvider())
             .userDetailsService(userDetailsService())
             .passwordEncoder(passwordEncoder())
+    }
+
+    @Bean
+    override fun userDetailsService(): UserDetailsService {
+        return UserDetailsService { username: String ->
+            employeeService
+                .loadUserByUsername(username)
+        }
     }
 
     override fun configure(http: HttpSecurity) {

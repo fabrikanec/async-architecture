@@ -11,7 +11,7 @@ import org.springframework.test.context.ActiveProfiles
 @Import(
     DataSourceAutoConfiguration::class,
 )
-class CompanyAuthApplicationContextTest {
+class EmployeeAuthApplicationContextTest {
     @Test
     fun contextLoads() {
     }

@@ -9,6 +9,7 @@ import com.taskmanagement.employee.auth.token.UserClaim
 import com.taskmanagement.employee.service.EmployeeService
 import org.slf4j.info
 import org.slf4j.lazyLogger
+import org.springframework.security.core.userdetails.User
 import org.springframework.security.jwt.JwtHelper
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken
 import org.springframework.security.oauth2.common.OAuth2AccessToken
@@ -28,7 +29,7 @@ class TrustedPersonTokenEnhancer(
 
         val employeePrincipal = when {
             authentication.oAuth2Request.grantType == PASSWORD_GRANT_TYPE -> {
-                authentication.principal as? EmployeePrincipal ?: error("Cannot determine user")
+                authentication.principal as? User ?: error("Cannot determine user")
             }
 
             authentication.oAuth2Request.refreshTokenRequest != null -> {
@@ -41,7 +42,7 @@ class TrustedPersonTokenEnhancer(
         return if (employeePrincipal != null) {
             log.info { "Enhancing access token with details. Authentication object - $authentication" }
             (accessToken as DefaultOAuth2AccessToken).apply {
-                additionalInformation = buildAdditionalInfoMap(employeePrincipal)
+//                additionalInformation = buildAdditionalInfoMap(employeePrincipal)
             }
         } else {
             log.info { "Return access token without enhancements. Authentication object - $authentication" }

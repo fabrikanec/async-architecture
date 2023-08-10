@@ -20,7 +20,7 @@ class OAuth2PlatformTokenSupportConfig(
     private val objectMapper: ObjectMapper,
 ) {
     @Bean
-    fun companyOAuth2TokenSupport(): EmployeeOAuth2TokenSupport =
+    fun employeeOAuth2TokenSupport(): EmployeeOAuth2TokenSupport =
         EmployeeOAuth2TokenSupportImpl(
             tokenStore = tokenStore,
             objectMapper = objectMapper

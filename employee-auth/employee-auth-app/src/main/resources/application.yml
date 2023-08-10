@@ -26,19 +26,19 @@ spring:
           batch_size: 30
           batch_versioned_data: false
   application:
-    name: employee-company-auth-app
+    name: employee-employee-auth-app
   datasource:
     hikari:
       minimum-idle: 2
       maximum-pool-size: 10
       idle-timeout: 30000
-      pool-name: employee-company-auth-app-jpa-pool
+      pool-name: employee-employee-auth-app-jpa-pool
       max-lifetime: 100000
       connection-timeout: 30000
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/db_dfa_company_auth_webapp
+    url: jdbc:postgresql://localhost:5432/employee
     username: postgres
-    password: password
+    password: 4y7sV96vA9wv46VR
   flyway:
     enabled: true
     out-of-order: true
@@ -46,7 +46,7 @@ spring:
 security:
   oauth2:
     resource:
-      id: company-auth-service
+      id: employee-auth-service
       jwt:
         key-value: -----BEGIN PUBLIC KEY-----
           MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh+sA8O8616X/nYByQ2xu
@@ -58,13 +58,13 @@ security:
           PQIDAQAB
           -----END PUBLIC KEY-----
     client:
-      id: company-auth-service
-      client-id: company-auth-service
-      client-secret: company-auth-service-secret
-      access-token-uri: ${company-auth-service.url}/oauth/token
+      id: employee-auth-service
+      client-id: employee-auth-service
+      client-secret: employee-auth-service-secret
+      access-token-uri: ${employee-auth-service.url}/oauth/token
       grant-type: client_credentials
 
-company-auth-service:
+employee-auth-service:
   url: localhost:8080
   verifier: node
   oauth2:
@@ -97,7 +97,7 @@ company-auth-service:
         client-secret: $2a$10$dw47zFO7/GV1cROPngAjZOTloJWeG9HXAa16Ux4LM4TaMkZx7p9OW
         resource-ids:
           - investor-app
-          - company-auth-service
+          - employee-auth-service
         scope:
           - read
         authorized-grant-types:
