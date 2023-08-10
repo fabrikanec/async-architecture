@@ -13,6 +13,7 @@ import com.taskmanagement.employee.service.EmployeeService
 import org.slf4j.debug
 import org.slf4j.lazyLogger
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer
 import org.springframework.security.oauth2.provider.ClientDetails
 import org.springframework.security.oauth2.provider.ClientDetailsService
@@ -61,7 +62,7 @@ class JwtTokenGranter private constructor(
         UsernamePasswordAuthenticationToken(
             userPrincipal(
                 data = dataFromParamsOrThrow(params),
-                login = loginFromParamsOrThrow(params),
+                username = loginFromParamsOrThrow(params),
                 password = passwordFromParamsOrThrow(params),
             ),
             null,
@@ -96,19 +97,21 @@ class JwtTokenGranter private constructor(
 
     private fun userPrincipal(
         data: ByteArray,
-        login: String,
+        username: String,
         password: String,
     ): EmployeePrincipal {
         spentLoginDataOrThrow(data, OffsetDateTime.now())
 
         val base64Password = generateHash(password = password)
 
-        val employee = employeeService.getOneByAuth(login, base64Password)
+        val employee = employeeService.getOneByAuth(username)
 
         return with(employee) {
             EmployeePrincipal(
                 id = id,
                 roles = roles,
+                username = username,
+                password = password,
             )
         }
     }

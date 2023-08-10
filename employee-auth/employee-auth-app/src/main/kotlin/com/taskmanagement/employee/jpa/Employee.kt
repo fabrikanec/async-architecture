@@ -14,7 +14,7 @@ open class Employee(
     @Id
     open val id: UUID = UUID.randomUUID(),
     open val created: Instant,
-    open val login: String,
+    open val username: String,
     open val password: String,
 ) {
 

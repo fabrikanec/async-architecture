@@ -29,7 +29,7 @@ class TrustedPersonTokenEnhancer(
 
         val employeePrincipal = when {
             authentication.oAuth2Request.grantType == PASSWORD_GRANT_TYPE -> {
-                authentication.principal as? User ?: error("Cannot determine user")
+                authentication.principal as? EmployeePrincipal ?: error("Cannot determine user")
             }
 
             authentication.oAuth2Request.refreshTokenRequest != null -> {
@@ -42,7 +42,7 @@ class TrustedPersonTokenEnhancer(
         return if (employeePrincipal != null) {
             log.info { "Enhancing access token with details. Authentication object - $authentication" }
             (accessToken as DefaultOAuth2AccessToken).apply {
-//                additionalInformation = buildAdditionalInfoMap(employeePrincipal)
+                additionalInformation = buildAdditionalInfoMap(employeePrincipal)
             }
         } else {
             log.info { "Return access token without enhancements. Authentication object - $authentication" }
@@ -57,12 +57,13 @@ class TrustedPersonTokenEnhancer(
             refreshTokenMap[name] ?: error("Field not found: $name")
 
         val user = objectMapper.convertValue<UserClaim>(fieldOrThrow(Paths.USER))
-        return with(user) {
-            EmployeePrincipal(
-                id = id,
-                roles = roles,
-            )
-        }
+        throw RuntimeException("unable to parse refresh token")
+//        return with(user) {
+//            EmployeePrincipal(
+//                id = id,
+//                roles = roles,
+//            )
+//        }
     }
 
     private fun buildAdditionalInfoMap(principal: EmployeePrincipal): Map<String, Any> {

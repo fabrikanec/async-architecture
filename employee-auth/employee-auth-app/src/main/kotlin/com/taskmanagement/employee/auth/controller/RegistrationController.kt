@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 class RegistrationController(
     private val employeeService: EmployeeService,
 ) {
@@ -16,7 +16,7 @@ class RegistrationController(
     @PostMapping
     fun register(@RequestBody employeeRegistrationRequest: EmployeeRegistrationRequest): Employee =
         employeeService.register(
-            login = employeeRegistrationRequest.login,
+            login = employeeRegistrationRequest.username,
             password = employeeRegistrationRequest.password,
         )
 }

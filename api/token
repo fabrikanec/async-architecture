@@ -1,1 +1,1 @@
-curl localhost:8080/oauth/token   -H 'authorization: Basic aXNzdWVyLWFwcC1jbGllbnQ6aXNzdWVyLWFwcC1jbGllbnQtc2VjcmV0'  --data-raw 'grant_type=password&username=login&password=password' -i
+curl localhost:8080/oauth/token   -H 'authorization: Basic aXNzdWVyLWFwcC1jbGllbnQ6aXNzdWVyLWFwcC1jbGllbnQtc2VjcmV0'  --data-raw 'grant_type=password&username=username&password=password' -i

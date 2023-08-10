@@ -34,6 +34,7 @@ class ResourceServerConfig(
                 "/oauth/*",
                 "/register",
                 "/login/data",
+                "/employees/**",
             ).permitAll()
             .antMatchers("/**").authenticated()
             .and()
