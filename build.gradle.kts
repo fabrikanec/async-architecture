@@ -29,6 +29,7 @@ val testContainers: String by project
 val junitPlatformLauncherVersion: String by project
 val mockkVersion: String by project
 val springMockkVersion: String by project
+val striktVersion: String by project
 
 plugins {
     kotlin("jvm") apply false
@@ -149,6 +150,8 @@ subprojects {
 
             dependency("net.logstash.logback:logstash-logback-encoder:$logstashLogbackEncoderVersion")
             dependency("com.frimastudio:slf4j-kotlin-extensions:$slf4jKotlinExtensionVersion")
+
+            dependency("io.strikt:strikt-core:$striktVersion")
 
             dependency("org.openapitools:openapi-generator-gradle-plugin:$openapiGeneratorVersion")
 

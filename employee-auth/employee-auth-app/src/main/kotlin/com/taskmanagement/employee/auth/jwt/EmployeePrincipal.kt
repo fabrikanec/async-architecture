@@ -12,7 +12,7 @@ class EmployeePrincipal(
     password: String,
     username: String,
     authorityCollection: Collection<GrantedAuthority> = AuthorityUtils.createAuthorityList("USER", "write"),
-): User(
+) : User(
     username,
     password,
     authorityCollection,

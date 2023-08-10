@@ -13,6 +13,7 @@ plugins {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
+    implementation(project(":async-api:employee-async-common"))
     implementation(project(":employee-auth:employee-auth-api"))
     implementation(project(":employee-auth:employee"))
     implementation(project(":employee-auth:employee-auth-token:employee-auth-token-api"))
@@ -29,6 +30,9 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // SPRING-KAFKA
+    implementation("org.springframework.kafka:spring-kafka")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     kapt("org.hibernate:hibernate-jpamodelgen")

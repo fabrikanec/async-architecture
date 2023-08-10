@@ -38,10 +38,19 @@ pluginManagement {
 rootProject.name = "task-management-system"
 
 include(
+    "api-gateway",
+    "async-api:employee-async-api",
+    "async-api:employee-async-common",
+    "async-api:task-async-api",
+    "async-api:task-async-common",
     "employee-auth:employee-auth-api",
     "employee-auth:employee",
     "employee-auth:employee-auth-app",
     "employee-auth:employee-auth-token:employee-auth-token-api",
     "employee-auth:employee-auth-token:employee-auth-token-support",
     "employee-auth:employee-auth-token:employee-auth-token-support-starter",
+    "headers-resolver:headers",
+    "headers-resolver:web",
+    "headers-resolver:web-autoconfigure",
+    "headers-resolver:web-spring-boot-starter",
 )

@@ -27,6 +27,14 @@ spring:
           batch_versioned_data: false
   application:
     name: employee-employee-auth-app
+  kafka:
+    producer:
+      transaction-id-prefix: "employee-tx-"
+      key-serializer: >-
+        org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: >-
+        org.apache.kafka.common.serialization.ByteArraySerializer
+    bootstrap-servers: "localhost:9092"
   datasource:
     hikari:
       minimum-idle: 2
@@ -93,17 +101,6 @@ employee-auth-service:
           - read
         authorized-grant-types:
           - client_credentials
-      investor-app-client:
-        client-secret: $2a$10$dw47zFO7/GV1cROPngAjZOTloJWeG9HXAa16Ux4LM4TaMkZx7p9OW
-        resource-ids:
-          - investor-app
-          - employee-auth-service
-        scope:
-          - read
-        authorized-grant-types:
-          - password
-          - refresh_token
-
 management:
   metrics:
     export:
@@ -128,3 +125,7 @@ management:
       exposure:
         include: '*'
 
+employee:
+  kafka:
+    stream:
+      topic: "employee-stream"

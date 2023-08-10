@@ -1,11 +1,12 @@
 package com.taskmanagement.employee.service
 
 import com.taskmanagement.employee.auth.jwt.EmployeePrincipal
+import com.taskmanagement.employee.event.stream.mapper.EmployeeStreamEventMapper
 import com.taskmanagement.employee.jpa.Employee
 import com.taskmanagement.employee.jpa.EmployeeRepository
-import com.taskmanagement.employee.jpa.EmployeeRepository.Companion.getByUsernameOrThrow
 import com.taskmanagement.employee.jpa.EmployeeRepository.Companion.getByIdOrThrow
-import org.springframework.security.core.authority.AuthorityUtils
+import com.taskmanagement.employee.jpa.EmployeeRepository.Companion.getByUsernameOrThrow
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -17,6 +18,8 @@ import java.util.UUID
 @Service
 class EmployeeService(
     private val employeeRepository: EmployeeRepository,
+    private val employeeStreamEventMapper: EmployeeStreamEventMapper,
+    private val applicationEventPublisher: ApplicationEventPublisher,
 ) : UserDetailsService {
 
     @Transactional(readOnly = true)
@@ -24,17 +27,29 @@ class EmployeeService(
         employeeRepository.getByIdOrThrow(id)
 
     @Transactional(readOnly = true)
-    fun getOneByAuth(login: String) =
+    fun getOneByAuth(username: String) =
         employeeRepository.getByUsernameOrThrow(
-            username = login,
+            username = username,
         )
 
-    fun register(login: String, password: String) =
-        Employee(
+    @Transactional
+    fun register(username: String, password: String): Employee {
+        val existing = employeeRepository.findByUsername(username = username)
+        check(existing == null) {
+            "Employee already exists"
+        }
+
+        val employee = Employee(
             created = Instant.now(),
-            username = login,
+            username = username,
             password = password,
-        ).apply(employeeRepository::save)
+        )
+        employeeRepository.save(employee)
+        with(employeeStreamEventMapper) {
+            applicationEventPublisher.publishEvent(employee.toStreamEventV1())
+        }
+        return employee
+    }
 
     override fun loadUserByUsername(username: String): UserDetails {
         val employee = getOneByAuth(username)

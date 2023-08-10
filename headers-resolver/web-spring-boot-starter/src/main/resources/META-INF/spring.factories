@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  comEmployee.user.web.UserWebAutoConfiguration

@@ -13,7 +13,6 @@ import com.taskmanagement.employee.service.EmployeeService
 import org.slf4j.debug
 import org.slf4j.lazyLogger
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer
 import org.springframework.security.oauth2.provider.ClientDetails
 import org.springframework.security.oauth2.provider.ClientDetailsService

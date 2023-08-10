@@ -1,0 +1,10 @@
+spring:
+
+employee-auth-service:
+  url: http://localhost:0
+
+task-tracker-service:
+  url: http://localhost:0
+
+accounting-service:
+  url: http://localhost:0

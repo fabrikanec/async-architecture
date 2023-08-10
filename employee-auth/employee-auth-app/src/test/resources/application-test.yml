@@ -9,13 +9,3 @@ spring:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
   flyway:
     enabled: true
-
-
-crypto-service:
-  url: http://crypto-service-emulator
-
-account-service:
-  url: http://account-service
-
-kyc-service:
-  url: http://kyc-service-emulator

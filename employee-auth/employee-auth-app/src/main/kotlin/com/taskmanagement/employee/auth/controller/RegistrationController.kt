@@ -16,7 +16,7 @@ class RegistrationController(
     @PostMapping
     fun register(@RequestBody employeeRegistrationRequest: EmployeeRegistrationRequest): Employee =
         employeeService.register(
-            login = employeeRegistrationRequest.username,
+            username = employeeRegistrationRequest.username,
             password = employeeRegistrationRequest.password,
         )
 }

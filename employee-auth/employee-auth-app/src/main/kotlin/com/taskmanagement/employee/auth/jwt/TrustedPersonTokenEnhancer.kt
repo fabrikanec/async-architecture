@@ -9,7 +9,6 @@ import com.taskmanagement.employee.auth.token.UserClaim
 import com.taskmanagement.employee.service.EmployeeService
 import org.slf4j.info
 import org.slf4j.lazyLogger
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.jwt.JwtHelper
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken
 import org.springframework.security.oauth2.common.OAuth2AccessToken
