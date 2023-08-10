@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class EmployeeApiGateWayApp
+class ApiGateWayApp
 
 fun main(args: Array<String>) {
-    runApplication<EmployeeApiGateWayApp>(*args)
+    runApplication<ApiGateWayApp>(*args)
 }

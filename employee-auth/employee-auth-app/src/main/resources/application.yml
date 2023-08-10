@@ -4,6 +4,9 @@ info:
   description: "@project.description@"
   parent: "@project.parent@"
 
+server:
+  port: 9080
+
 spring:
   main:
     allow-bean-definition-overriding: true

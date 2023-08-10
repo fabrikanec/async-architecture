@@ -21,6 +21,10 @@ class EmployeeAuthRouteConfig(
     @Bean
     fun employeeAuthRouteLocator(builder: RouteLocatorBuilder): RouteLocator =
         builder.routes {
+            route(id = "employeeRegister") {
+                path("/employees") and method(POST)
+                uri(employeeAuthServiceConfigurationProperties.url)
+            }
             route(id = "employeeAuthToken") {
                 val apiPath = "/token"
                 path("$apiPath/**") and method(POST)

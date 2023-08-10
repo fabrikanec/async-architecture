@@ -35,4 +35,4 @@ management:
 
 
 employee-auth-service:
-  url: localhost:8080
+  url: http://localhost:9080
