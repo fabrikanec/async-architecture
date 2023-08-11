@@ -16,7 +16,7 @@ import javax.persistence.Id
 @TypeDefs(
     TypeDef(name = PostgreSqlType.JSONB_TYPE, typeClass = JsonBinaryType::class)
 )
-open class Employee(
+open class Employee protected constructor(
     @Id
     open val id: UUID = UUID.randomUUID(),
     open val created: Instant,

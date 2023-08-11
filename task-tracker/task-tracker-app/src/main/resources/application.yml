@@ -3,15 +3,13 @@ info:
   version: "@project.version@"
   description: "@project.description@"
   parent: "@project.parent@"
-
 spring:
   main:
     allow-bean-definition-overriding: true
   application:
     name: task-tracker-app
   kafka:
-    bootstrap-servers:
-      - ${spring.kafka.bootstrap-servers}
+    bootstrap-servers: "localhost:9092"
     producer:
       transaction-id-prefix: "task-tracker-tx-"
       key-serializer: >-
@@ -48,3 +46,6 @@ employee-stream:
 
 task-flow:
     topic: "task-flow"
+
+server:
+  port: 9081

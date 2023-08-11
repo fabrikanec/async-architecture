@@ -2,6 +2,7 @@ import com.gorylenko.GitPropertiesPluginExtension
 
 plugins {
     kotlin("plugin.spring")
+    kotlin("plugin.jpa")
     id("org.springframework.boot")
     id("com.palantir.git-version")
     id("com.palantir.docker")
