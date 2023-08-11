@@ -5,7 +5,16 @@ spring:
     hibernate:
       ddl-auto: validate
   datasource:
-    url: jdbc:tc:postgresql:10-alpine:///employee
+    url: jdbc:tc:postgresql:10-alpine:///task_tracker
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
   flyway:
     enabled: true
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+
+employee-stream:
+  topic: "employee-stream"
+
+task-flow:
+  topic: "task-flow"

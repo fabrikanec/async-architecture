@@ -38,6 +38,8 @@ pluginManagement {
 rootProject.name = "task-management-system"
 
 include(
+    "task-tracker:task-tracker-api",
+    "task-tracker:task-tracker-app",
     "api-gateway",
     "async-api:employee-async-api",
     "async-api:employee-async-common",

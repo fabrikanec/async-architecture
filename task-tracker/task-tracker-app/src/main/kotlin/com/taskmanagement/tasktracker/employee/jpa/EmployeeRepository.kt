@@ -1,4 +1,4 @@
-package com.taskmanagement.employee.jpa
+package com.taskmanagement.tasktracker.employee.jpa
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -10,13 +10,9 @@ import javax.persistence.EntityNotFoundException
 interface EmployeeRepository :
     JpaRepository<Employee, UUID> {
 
-    fun findByUsername(username: String): Employee?
     companion object {
 
         fun EmployeeRepository.getByIdOrThrow(id: UUID) =
             findByIdOrNull(id) ?: throw EntityNotFoundException("Employee with id = [$id] not found")
-
-        fun EmployeeRepository.getByUsernameOrThrow(username: String) =
-            findByUsername(username) ?: throw EntityNotFoundException("Employee with username $username not found")
     }
 }
