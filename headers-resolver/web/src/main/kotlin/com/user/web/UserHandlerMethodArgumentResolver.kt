@@ -24,7 +24,7 @@ class UserHandlerMethodArgumentResolver : HandlerMethodArgumentResolver {
 
     private fun NativeWebRequest.userOrThrow(): User {
         val invalidHeaders: MutableCollection<InvalidHeader> = mutableListOf()
-        val id: String? = headerOrInvalid(UserHttpHeaders.id, invalidHeaders)
+        val id: UUID? = headerOrInvalid(UserHttpHeaders.id, invalidHeaders)?.toUUIDOrNull()
         val roles: Array<String>? = headerValuesOrInvalid(UserHttpHeaders.roles, invalidHeaders)
         if (invalidHeaders.isNotEmpty())
             throw UserConstructionException(invalidHeaders)

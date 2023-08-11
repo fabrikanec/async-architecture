@@ -1,7 +1,6 @@
 create table task
 (
     id          uuid primary key,
-    roles       jsonb not null,
     description varchar,
     status      varchar,
     employee_id uuid,

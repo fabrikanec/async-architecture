@@ -1,6 +1,8 @@
 package com.user
 
+import java.util.UUID
+
 data class User(
-    val id: String,
+    val id: UUID,
     val roles: Collection<String>,
 )

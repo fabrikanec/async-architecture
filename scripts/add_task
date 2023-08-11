@@ -1,0 +1,1 @@
+curl -X POST localhost:8080/tasks -H 'Authorization: Bearer ' -d '{"assignee":"", "description":"some"}' -H 'Content-Type: application/json'

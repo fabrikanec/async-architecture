@@ -36,3 +36,6 @@ management:
 
 employee-auth-service:
   url: http://localhost:9080
+
+task-tracker-service:
+  url: http://localhost:9081

@@ -41,6 +41,9 @@ dependencies {
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
+    implementation(project(":headers-resolver:web-spring-boot-starter"))
+
+
     // SWAGGER
     implementation("org.springdoc:springdoc-openapi-ui")
     implementation("org.springdoc:springdoc-openapi-webmvc-core")

@@ -16,15 +16,12 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
 @Entity
-@TypeDefs(
-    TypeDef(name = PostgreSqlType.JSONB_TYPE, typeClass = JsonBinaryType::class)
-)
 open class Task(
     @Id
     open val id: UUID = UUID.randomUUID(),
     open val created: Instant,
     @ManyToOne(optional = false)
-    @JoinColumn(name = "employee_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     open var assignee: Employee,
     open val description: String,
 ) {
