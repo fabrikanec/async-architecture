@@ -50,7 +50,7 @@ internal class UserControllerTest {
     @Test
     fun `should return 200 when get user`() {
         every { employeeOauth2TokenSupport.roles } answers { setOf(EmployeeRole.COMMON_EMPLOYEE) }
-        every { employeeOauth2TokenSupport.getOrNullUserClaimId() } answers { UUID.fromString("b9470d76-1307-4b77-88bf-3be6f023f957") }
+        every { employeeOauth2TokenSupport.getUserClaimId() } answers { UUID.fromString("b9470d76-1307-4b77-88bf-3be6f023f957") }
 
         mockMvc.get("/users/info").andDo { print() }.andExpect {
             status { isOk() }

@@ -28,7 +28,7 @@ class EmployeeOAuth2TokenSupportImpl(
         }
     }
 
-    override fun getOrNullUserClaimId(): UUID? =
+    override fun getUserClaimId(): UUID =
         user.id
 
     private fun rawTokenAdditionalInfo(key: String): Any? =

@@ -4,6 +4,7 @@ import com.taskmanagement.tasktracker.employee.jpa.EmployeeRepository
 import com.taskmanagement.tasktracker.task.event.flow.v1.mapper.TaskFlowEventMapper
 import com.taskmanagement.tasktracker.task.jpa.TaskRepository
 import com.taskmanagement.tasktracker.task.jpa.TaskStatus
+import com.taskmanagement.tasktracker.task.price.PriceResolver
 import com.taskmanagement.tasktracker.task.shuffle.config.properties.TaskShuffleProperties
 import com.taskmanagement.tasktracker.task.shuffle.jpa.TaskShuffleRepository
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -21,6 +22,7 @@ class TaskShuffleService(
     private val taskShuffleProperties: TaskShuffleProperties,
     private val applicationEventPublisher: ApplicationEventPublisher,
     private val taskFlowEventMapper: TaskFlowEventMapper,
+    private val priceResolver: PriceResolver,
 ) {
     @Transactional
     fun shuffle() {
@@ -32,7 +34,7 @@ class TaskShuffleService(
             it.assignee = employeeRepository.findOneRandomly()
                 ?: throw IllegalStateException("No one entity found")
             with(taskFlowEventMapper) {
-                applicationEventPublisher.publishEvent(it.toTaskAssignedEventV1())
+                applicationEventPublisher.publishEvent(it.toTaskAssignedEventV1(priceAmount = priceResolver.priceToCharge))
             }
         }
         taskRepository.saveAll(tasks)

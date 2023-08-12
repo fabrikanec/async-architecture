@@ -7,5 +7,5 @@ interface EmployeeOAuth2TokenSupport {
     val roles: Set<EmployeeRole>
     fun hasRole(roles: String): Boolean
     fun hasAnyRole(vararg roles: String): Boolean
-    fun getOrNullUserClaimId(): UUID?
+    fun getUserClaimId(): UUID
 }

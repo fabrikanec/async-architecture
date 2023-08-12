@@ -1,6 +1,7 @@
 package com.taskmanagement.tasktracker.task.controller
 
 import com.taskmanagement.tasktracker.AddTaskRequest
+import com.taskmanagement.tasktracker.CompleteTaskRequest
 import com.taskmanagement.tasktracker.task.service.TaskTrackerService
 import com.user.User
 import org.springframework.data.domain.Pageable
@@ -20,6 +21,17 @@ class TaskTrackerController(
         @RequestBody addTaskRequest: AddTaskRequest,
         user: User,
     ) = taskTrackerService.add(addTaskRequest)
+
+    @PostMapping(
+        "/complete"
+    )
+    fun complete(
+        @RequestBody completeTaskRequest: CompleteTaskRequest,
+        user: User,
+    ) = taskTrackerService.complete(
+        taskId = completeTaskRequest.taskId,
+        user = user,
+    )
 
     @PostMapping("/shuffle")
     fun shuffle(

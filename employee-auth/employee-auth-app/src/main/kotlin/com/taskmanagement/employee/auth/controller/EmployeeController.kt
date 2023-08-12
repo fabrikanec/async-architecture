@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/employees")
-class RegistrationController(
+class EmployeeController(
     private val employeeService: EmployeeService,
 ) {
 
@@ -19,4 +19,9 @@ class RegistrationController(
             username = employeeRegistrationRequest.username,
             password = employeeRegistrationRequest.password,
         )
+
+    @PostMapping("/roles")
+    fun changeRole() {
+        TODO()
+    }
 }
