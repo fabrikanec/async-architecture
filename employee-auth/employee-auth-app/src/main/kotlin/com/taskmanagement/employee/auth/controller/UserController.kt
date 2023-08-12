@@ -4,8 +4,7 @@ import com.taskmanagement.employee.auth.openapi.SecuredRestController
 import com.taskmanagement.employee.auth.token.EmployeeOAuth2TokenSupport
 import com.taskmanagement.employee.auth.user.UserApiDto
 import com.taskmanagement.employee.jpa.Employee
-import com.taskmanagement.employee.jpa.EmployeeRepository
-import com.taskmanagement.employee.jpa.EmployeeRepository.Companion.getByIdOrThrow
+import com.taskmanagement.employee.service.EmployeeService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 
@@ -13,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 @RequestMapping("/users")
 class UserController(
     private val employeeOauth2TokenSupport: EmployeeOAuth2TokenSupport,
-    private val employeeRepository: EmployeeRepository,
+    private val employeeService: EmployeeService,
 ) {
 
     @GetMapping("/info")
     fun current(): UserApiDto {
-        val employee = employeeRepository.getByIdOrThrow(
+        val employee = employeeService.getOne(
             id = employeeOauth2TokenSupport.getUserClaimId()
         )
         return employee.toUserApiDto()

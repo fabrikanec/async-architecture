@@ -43,7 +43,6 @@ dependencies {
 
     implementation(project(":headers-resolver:web-spring-boot-starter"))
 
-
     // SWAGGER
     implementation("org.springdoc:springdoc-openapi-ui")
     implementation("org.springdoc:springdoc-openapi-webmvc-core")

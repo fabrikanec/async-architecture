@@ -33,5 +33,4 @@ class TaskTrackerRouteConfig(
                 uri(taskTrackerServiceConfigurationProperties.url)
             }
         }
-
 }

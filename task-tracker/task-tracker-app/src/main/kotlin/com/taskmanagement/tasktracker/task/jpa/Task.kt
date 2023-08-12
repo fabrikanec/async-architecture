@@ -1,11 +1,7 @@
 package com.taskmanagement.tasktracker.task.jpa
 
 import com.taskmanagement.tasktracker.employee.jpa.Employee
-import com.taskmanagement.tasktracker.util.db.PostgreSqlType
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import org.hibernate.Hibernate
-import org.hibernate.annotations.TypeDef
-import org.hibernate.annotations.TypeDefs
 import java.time.Instant
 import java.util.UUID
 import javax.persistence.Entity

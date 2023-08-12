@@ -47,9 +47,6 @@ employee-stream:
 task-flow:
     topic: "task-flow"
 
-task-shuffle:
-  id: "b9470d76-1307-4b77-83bf-3be6f023f917"
-
 task-shuffle-job:
   cron: "*/1 * * * * *"
 

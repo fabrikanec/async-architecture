@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
+import java.time.Instant
 import java.util.UUID
 import javax.persistence.EntityNotFoundException
 import javax.persistence.LockModeType
@@ -31,10 +32,12 @@ interface TaskRepository :
         """
             select * from task
             where status = :status
+            and updated <= :date
+            limit :limit
         """,
         nativeQuery = true
     )
-    fun findAllByStatus(status: String): List<Task>
+    fun findLimitedByStatusAndUpdatedLessThen(limit: Int, status: String, date: Instant): List<Task>
 
     companion object {
 
@@ -43,6 +46,5 @@ interface TaskRepository :
 
         fun TaskRepository.getByIdWithLockOrThrow(id: UUID) =
             findByIdOrNull(id) ?: throw EntityNotFoundException("Employee with id = [$id] not found")
-
     }
 }
