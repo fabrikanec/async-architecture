@@ -21,7 +21,7 @@ class TaskTrackerRouteConfig(
     val userInfoGatewayFilterFactory: UserInfoGatewayFilterFactory,
 ) {
     @Bean
-    fun companyRegistrationRequestRouteLocator(builder: RouteLocatorBuilder): RouteLocator =
+    fun taskTrackerRouteLocator(builder: RouteLocatorBuilder): RouteLocator =
         builder.routes {
             route(id = "taskTrackerMapping") {
                 path("/tasks/**") and method(GET, POST)
