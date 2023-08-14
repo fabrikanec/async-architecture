@@ -1,6 +1,7 @@
 package com.taskmanagement.tasktracker.task.shuffle.config
 
 import com.taskmanagement.tasktracker.task.shuffle.config.properties.TaskShuffleJobProperties
+import com.taskmanagement.tasktracker.task.shuffle.job.ShuffleJob
 import com.taskmanagement.tasktracker.util.schedule.scheduledMethodRunnable
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean

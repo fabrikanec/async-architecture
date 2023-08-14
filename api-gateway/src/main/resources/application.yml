@@ -1,0 +1,41 @@
+info:
+  name: "@project.name@"
+  version: "@project.version@"
+  description: "@project.description@"
+  parent: "@project.parent@"
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: api-gateway
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles:
+        http.server.requests: 0.5, 0.75, 0.95
+      percentiles-histogram:
+        http.server.requests: true
+      slo:
+        http.server.requests: 10ms, 100ms, 150ms, 250ms, 500ms, 1s
+  health:
+    rabbit:
+      enabled: false
+  info:
+    git:
+      enabled: true
+      mode: full
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+employee-auth-service:
+  url: http://localhost:9080
+
+task-tracker-service:
+  url: http://localhost:9081

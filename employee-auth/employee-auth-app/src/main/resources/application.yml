@@ -1,0 +1,134 @@
+info:
+  name: "@project.name@"
+  version: "@project.version@"
+  description: "@project.description@"
+  parent: "@project.parent@"
+
+server:
+  port: 9080
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        types:
+          print:
+            banner: false
+        event:
+          merge:
+            entity_copy_observer: allow
+        order_inserts: true
+        jdbc:
+          time_zone: UTC
+          log.warnings: true
+          lob.non_contextual_creation: true
+          batch_size: 30
+          batch_versioned_data: false
+  application:
+    name: employee-employee-auth-app
+  kafka:
+    producer:
+      transaction-id-prefix: "employee-tx-"
+      key-serializer: >-
+        org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: >-
+        org.apache.kafka.common.serialization.ByteArraySerializer
+    bootstrap-servers: "localhost:9092"
+  datasource:
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      pool-name: employee-employee-auth-app-jpa-pool
+      max-lifetime: 100000
+      connection-timeout: 30000
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/employee
+    username: postgres
+    password: 4y7sV96vA9wv46VR
+  flyway:
+    enabled: true
+    out-of-order: true
+
+security:
+  oauth2:
+    resource:
+      id: employee-auth-service
+      jwt:
+        key-value: -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh+sA8O8616X/nYByQ2xu
+          hhFHmec3k6urgNOphfxmZ/JQ6ySdD8hnVAqUHpKwUJkd1Nad2zKp0j4DFLw6UZTz
+          yXo4vdPo7Ibn3h8qPqmL7DDciWuVhJ6r1Gxajn+VohqAeLIOkIALzgN2yBjGQYws
+          mjrZUmk5N7A4DuHd/PksoYjRMCoISfKfjtmx9LfCHOvqivEaCCEXcEv8vMpcnPd+
+          yqQ8cUb6ya5CKdSzO82ZivIzeiJ5pvuHAmh1KsWYoqpJ82zHrdwaTElWeiN1hMv2
+          wHykww+DMm/E04oeIhDoEnyyS7wvqsOC8tJo9nMnNoc93INfeICEojEi3RX2Mtwb
+          PQIDAQAB
+          -----END PUBLIC KEY-----
+    client:
+      id: employee-auth-service
+      client-id: employee-auth-service
+      client-secret: employee-auth-service-secret
+      access-token-uri: ${employee-auth-service.url}/oauth/token
+      grant-type: client_credentials
+
+employee-auth-service:
+  url: localhost:8080
+  verifier: node
+  oauth2:
+    token:
+      validity:
+        access: 600S
+        refresh: 3600S
+    clients:
+      issuer-app-client:
+        client-secret: $2a$10$.ty4vqAIxLJz//8QevxfauqHgDIndQmCxnWRzPzsgS2PoFYtd7Ik.
+        resource-ids:
+          - issuer-app
+          - employee-auth-service
+        scope:
+          - read
+        authorized-grant-types:
+          - password
+          - refresh_token
+      issuer-app-integration-client:
+        client-secret: $2a$10$FeIv42iPW.f6351FA6661eyumaYFd1nWrhfATYYhiK9zKehLyImTm
+        resource-ids:
+          - issuer-app
+          - employee-auth-service
+        scope:
+          - write
+          - read
+        authorized-grant-types:
+          - client_credentials
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles:
+        http.server.requests: 0.5, 0.75, 0.95
+      percentiles-histogram:
+        http.server.requests: true
+      sla:
+        http.server.requests: 10ms, 100ms, 150ms, 250ms, 500ms, 1s
+  health:
+    rabbit:
+      enabled: false
+  info:
+    git:
+      enabled: true
+      mode: full
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+employee:
+  kafka:
+    stream:
+      topic: "employee-stream"
