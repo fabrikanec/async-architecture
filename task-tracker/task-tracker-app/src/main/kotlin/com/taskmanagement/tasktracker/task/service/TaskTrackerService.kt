@@ -5,6 +5,7 @@ import com.taskmanagement.tasktracker.AddTaskRequest
 import com.taskmanagement.tasktracker.employee.jpa.EmployeeRepository
 import com.taskmanagement.tasktracker.employee.jpa.EmployeeRepository.Companion.getByIdOrThrow
 import com.taskmanagement.tasktracker.task.event.flow.v1.mapper.TaskFlowEventMapper
+import com.taskmanagement.tasktracker.task.event.stream.v1.mapper.TaskStreamEventMapper
 import com.taskmanagement.tasktracker.task.jpa.Task
 import com.taskmanagement.tasktracker.task.jpa.TaskRepository
 import com.taskmanagement.tasktracker.task.jpa.TaskRepository.Companion.getByIdOrThrow
@@ -27,6 +28,7 @@ class TaskTrackerService(
     private val taskRepository: TaskRepository,
     private val employeeRepository: EmployeeRepository,
     private val taskFlowEventMapper: TaskFlowEventMapper,
+    private val taskStreamEventMapper: TaskStreamEventMapper,
     private val taskShuffleRepository: TaskShuffleRepository,
     private val priceResolver: PriceResolver,
     private val clock: Clock,
@@ -40,9 +42,15 @@ class TaskTrackerService(
             description = addTaskRequest.description,
         )
         taskRepository.save(task)
+
+        with(taskStreamEventMapper) {
+            applicationEventPublisher.publishEvent(task.toStreamEventV1())
+        }
+
         with(taskFlowEventMapper) {
             applicationEventPublisher.publishEvent(task.toTaskAssignedEventV1(priceAmount = priceResolver.priceToCharge))
         }
+
         return task
     }
 
@@ -64,7 +72,13 @@ class TaskTrackerService(
         }
 
         task.status = TaskStatus.COMPLETED
+
         taskRepository.save(task)
+
+        with(taskStreamEventMapper) {
+            applicationEventPublisher.publishEvent(task.toStreamEventV1())
+        }
+
         with(taskFlowEventMapper) {
             applicationEventPublisher.publishEvent(task.toTaskCompletedEventV1(priceAmount = priceResolver.priceToPay))
         }

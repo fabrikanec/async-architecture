@@ -44,6 +44,9 @@ spring:
 employee-stream:
   topic: "employee-stream"
 
+task-stream:
+  topic: "task-stream"
+
 task-flow:
     topic: "task-flow"
 
