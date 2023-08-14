@@ -7,7 +7,6 @@ import java.util.UUID
 data class TaskAssignedEventV1(
     val id: UUID,
     val assignee: UUID,
-    val description: String,
     val created: Instant,
     val priceAmount: BigInteger,
 ) : TaskFlowEvent

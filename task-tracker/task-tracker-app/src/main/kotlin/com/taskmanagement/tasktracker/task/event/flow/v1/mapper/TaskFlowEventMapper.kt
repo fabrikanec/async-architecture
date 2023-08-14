@@ -5,24 +5,24 @@ import com.taskmanagement.task.event.flow.TaskCompletedEventV1
 import com.taskmanagement.tasktracker.task.jpa.Task
 import org.springframework.stereotype.Component
 import java.math.BigInteger
+import java.time.Clock
 
 @Component
-object TaskFlowEventMapper {
+class TaskFlowEventMapper(
+    private val clock: Clock,
+) {
     fun Task.toTaskAssignedEventV1(priceAmount: BigInteger): TaskAssignedEventV1 =
         TaskAssignedEventV1(
             id = id,
             assignee = assignee.id,
-            description = description,
             created = created,
-            priceAmount = priceAmount
+            priceAmount = priceAmount,
         )
 
     fun Task.toTaskCompletedEventV1(priceAmount: BigInteger): TaskCompletedEventV1 =
         TaskCompletedEventV1(
             id = id,
-            assignee = assignee.id,
-            description = description,
-            created = created,
+            created = clock.instant(),
             priceAmount = priceAmount,
         )
 }
