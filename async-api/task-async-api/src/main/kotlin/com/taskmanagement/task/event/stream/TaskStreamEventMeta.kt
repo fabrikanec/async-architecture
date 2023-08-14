@@ -7,7 +7,7 @@ object TaskStreamEventMeta {
         const val header: String = "__TypeId__"
 
         val typeByValue: Map<String, Class<*>> = mapOf(
-            TASK_V1 to TaskStreamdEventV1::class.java,
+            TASK_V1 to TaskStreamEventV1::class.java,
         )
     }
 }
