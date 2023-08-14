@@ -15,11 +15,11 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken
 import org.springframework.security.oauth2.provider.OAuth2Authentication
 import org.springframework.security.oauth2.provider.token.TokenEnhancer
 
-class TrustedPersonTokenEnhancer(
+class EmployeeTokenEnhancer(
     private val employeeService: EmployeeService,
     private val objectMapper: ObjectMapper,
 ) : TokenEnhancer {
-    private val log by lazyLogger(TrustedPersonTokenEnhancer::class)
+    private val log by lazyLogger(EmployeeTokenEnhancer::class)
 
     override fun enhance(
         accessToken: OAuth2AccessToken,
@@ -32,7 +32,7 @@ class TrustedPersonTokenEnhancer(
             }
 
             authentication.oAuth2Request.refreshTokenRequest != null -> {
-                trustedPersonPrincipalFromRefreshToken(accessToken)
+                employeePrincipalFromRefreshToken(accessToken)
             }
 
             else -> null
@@ -49,7 +49,7 @@ class TrustedPersonTokenEnhancer(
         }
     }
 
-    private fun trustedPersonPrincipalFromRefreshToken(accessToken: OAuth2AccessToken): EmployeePrincipal {
+    private fun employeePrincipalFromRefreshToken(accessToken: OAuth2AccessToken): EmployeePrincipal {
         val decodedRefreshToken = JwtHelper.decode(accessToken.refreshToken.value)
         val refreshTokenMap: Map<String, Any?> = objectMapper.readValue(decodedRefreshToken.claims)
         fun fieldOrThrow(name: String) =

@@ -18,7 +18,7 @@ class JwtConfig(
 ) {
     @Bean
     fun employeeTokenEnhancer(): TokenEnhancer =
-        TrustedPersonTokenEnhancer(
+        EmployeeTokenEnhancer(
             employeeService,
             objectMapper,
         )
