@@ -1,7 +1,5 @@
 package com.taskmanagement.tasktracker.task.event.flow.v1.mapper
 
-import com.taskmanagement.task.event.flow.TaskAssignedEventV1
-import com.taskmanagement.task.event.flow.TaskCompletedEventV1
 import com.taskmanagement.tasktracker.task.jpa.Task
 import org.springframework.stereotype.Component
 import java.math.BigInteger

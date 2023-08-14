@@ -1,6 +1,5 @@
 package com.taskmanagement.employee.auth.token
 
-import com.taskmanagement.employee.EmployeeRole
 import java.util.UUID
 
 interface EmployeeOAuth2TokenSupport {

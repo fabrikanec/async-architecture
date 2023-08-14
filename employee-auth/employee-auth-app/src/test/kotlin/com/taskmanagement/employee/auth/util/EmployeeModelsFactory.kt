@@ -1,6 +1,5 @@
 package com.taskmanagement.employee.auth.util
 
-import com.taskmanagement.employee.EmployeeRole
 import com.taskmanagement.employee.jpa.Employee
 import java.time.Instant
 

@@ -1,6 +1,5 @@
 package com.taskmanagement.employee.jpa
 
-import com.taskmanagement.employee.EmployeeRole
 import com.taskmanagement.employee.auth.util.db.PostgreSqlType
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import org.hibernate.Hibernate

@@ -1,1 +1,0 @@
-curl -X POST localhost:8080/employees -d '{"username":"username", "password":"password"}' -H 'content-type: application/json'

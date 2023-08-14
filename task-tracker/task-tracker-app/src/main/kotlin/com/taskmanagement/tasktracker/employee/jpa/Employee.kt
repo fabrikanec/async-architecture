@@ -1,6 +1,5 @@
 package com.taskmanagement.tasktracker.employee.jpa
 
-import com.taskmanagement.employee.EmployeeRole
 import com.taskmanagement.tasktracker.util.db.PostgreSqlType
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType
 import org.hibernate.Hibernate

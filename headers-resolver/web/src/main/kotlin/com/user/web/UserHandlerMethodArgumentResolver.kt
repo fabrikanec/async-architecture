@@ -1,7 +1,6 @@
 package com.user.web
 
 import com.user.User
-import com.user.http.headers.UserHttpHeaders
 import org.springframework.core.MethodParameter
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.context.request.NativeWebRequest
