@@ -72,6 +72,7 @@ class TaskTrackerService(
         }
 
         task.status = TaskStatus.COMPLETED
+        task.updated = clock.instant()
 
         taskRepository.save(task)
 
