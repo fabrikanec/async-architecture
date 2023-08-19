@@ -35,6 +35,10 @@ class TaskTrackerService(
 ) {
     @Transactional
     fun add(addTaskRequest: AddTaskRequest): Task {
+        require(!addTaskRequest.description.contains("[\\[\\]]")) {
+            "Invalid description: should not contain '[' and ']'"
+        }
+
         val assignee = employeeRepository.getByIdOrThrow(addTaskRequest.assignee)
         val task = Task(
             created = clock.instant(),
@@ -42,8 +46,9 @@ class TaskTrackerService(
             description = addTaskRequest.description,
             priceToCharge = priceResolver.priceToCharge,
             priceToPay = priceResolver.priceToPay,
-            title = addTaskRequest.jiraId,
+            jiraId = addTaskRequest.jiraId,
         )
+
         taskRepository.save(task)
 
         with(taskStreamEventMapper) {

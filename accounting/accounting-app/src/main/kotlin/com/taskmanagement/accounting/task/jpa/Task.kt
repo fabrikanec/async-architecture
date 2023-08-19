@@ -48,7 +48,7 @@ open class Task(
             assigneeId: UUID,
             description: String,
             status: TaskStatus,
-            title: String,
+            jiraId: String?,
             priceToPay: BigDecimal,
             priceToCharge: BigDecimal,
         ): Task =
@@ -57,7 +57,7 @@ open class Task(
                 created = created,
                 assigneeId = assigneeId,
                 description = description,
-                title = title,
+                jiraId = jiraId,
                 priceToCharge = priceToCharge,
                 priceToPay = priceToPay,
             ).apply {

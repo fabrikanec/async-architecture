@@ -1,8 +1,6 @@
 package com.taskmanagement.accounting.payment.controller
 
-import com.taskmanagement.accounting.payment.jpa.Payment
-import com.taskmanagement.tasktracker.TaskResponseDto
-import com.taskmanagement.tasktracker.operationhistory.service.TaskTrackerService
+import com.taskmanagement.employee.EmployeeRole
 import com.user.User
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/payments")
 class PaymentController(
-    private val taskTrackerService: TaskTrackerService,
+    private val paymentService: PaymentService,
 ) {
 
     @GetMapping
@@ -20,17 +18,32 @@ class PaymentController(
         user: User,
         pageable: Pageable,
     ) =
-        taskTrackerService.getAll(
+        paymentService.getAll(
             user = user,
             pageable = pageable,
         ).map { it.toHttpDto() }
 
+
+    @GetMapping("/statistics")
+    fun getStatistics(
+        user: User,
+        pageable: Pageable,
+    ) {
+        require(user.roles.any { it in statisticsPerimitedRoles }) {
+            "You are not allowed to view statistics"
+        }
+
+        paymentService.getStatics(
+            user = user,
+            pageable = pageable,
+        ).map { it.toHttpDto() }
+    }
+
+
     companion object {
-        fun Payment.toHttpDto(): TaskResponseDto =
-            TaskResponseDto(
-                id = id,
-                created = created,
-                description = description,
-            )
+        private val statisticsPerimitedRoles = setOf(
+            EmployeeRole.ACCOUNTER.name,
+            EmployeeRole.ADMINISTRATOR.name,
+        )
     }
 }

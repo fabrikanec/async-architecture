@@ -37,6 +37,12 @@ class AccountingRouteConfig(
                         create()
                     }
                 }
+                path("/balance/**") and method(GET,)
+                filters {
+                    with(userInfoGatewayFilterFactory) {
+                        create()
+                    }
+                }
                 uri(accountingServiceConfigurationProperties.url)
             }
         }

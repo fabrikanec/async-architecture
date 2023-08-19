@@ -19,7 +19,7 @@ class TaskFlowEventV1Handler(
     @Transactional
     @EventListener
     fun handle(event: TaskAddedEventV1) {
-        val existingTask: Task? = taskRepository.findByIdOrNull(event.id)
+        val existingTask: Task = taskRepository.findByIdOrNull(event.id) ?: TODO("move event to dql")
         if (existingTask == null || existingTask.updated < event.updated)
             with(taskFlowEventMapper) {
                 taskRepository.save(
@@ -31,7 +31,7 @@ class TaskFlowEventV1Handler(
     @Transactional
     @EventListener
     fun handle(event: TaskReshuffledEventV1) {
-        val existingTask: Task? = taskRepository.findByIdOrNull(event.id)
+        val existingTask: Task = taskRepository.findByIdOrNull(event.id) ?: TODO("move event to dql")
         if (existingTask == null || existingTask.updated < event.updated)
             with(taskFlowEventMapper) {
                 taskRepository.save(
@@ -43,7 +43,7 @@ class TaskFlowEventV1Handler(
     @Transactional
     @EventListener
     fun handle(event: TaskCompletedEventV1) {
-        val existingTask: Task? = taskRepository.findByIdOrNull(event.id)
+        val existingTask: Task = taskRepository.findByIdOrNull(event.id) ?: TODO("move event to dql")
         if (existingTask == null || existingTask.updated < event.updated)
             with(taskFlowEventMapper) {
                 taskRepository.save(

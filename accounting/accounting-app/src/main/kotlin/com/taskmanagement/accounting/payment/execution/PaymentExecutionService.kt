@@ -5,9 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.Clock
 
 @Service
-class PaymentExecutionService(
-    private val clock: Clock,
-) {
+class PaymentExecutionService {
     @Transactional
     fun executePayment() {
         TODO()
