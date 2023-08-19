@@ -44,6 +44,6 @@ interface TaskShuffleRepository :
     companion object {
 
         fun TaskShuffleRepository.getByIdOrThrow(id: UUID) =
-            findByIdOrNull(id) ?: throw EntityNotFoundException("Employee with id = [$id] not found")
+            findByIdOrNull(id) ?: throw EntityNotFoundException("TaskShuffle with id = [$id] not found")
     }
 }

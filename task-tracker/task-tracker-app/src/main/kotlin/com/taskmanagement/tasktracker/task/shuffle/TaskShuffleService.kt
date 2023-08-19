@@ -3,7 +3,6 @@ package com.taskmanagement.tasktracker.task.shuffle
 import com.taskmanagement.tasktracker.employee.jpa.EmployeeRepository
 import com.taskmanagement.tasktracker.task.event.flow.v1.mapper.TaskFlowEventMapper
 import com.taskmanagement.tasktracker.task.event.stream.v1.mapper.TaskStreamEventMapper
-import com.taskmanagement.tasktracker.task.event.stream.v1.mapper.TaskStreamEventMapper.toStreamEventV1
 import com.taskmanagement.tasktracker.task.jpa.TaskRepository
 import com.taskmanagement.tasktracker.task.jpa.TaskStatus
 import com.taskmanagement.tasktracker.task.price.PriceResolver
@@ -21,7 +20,6 @@ class TaskShuffleService(
     private val applicationEventPublisher: ApplicationEventPublisher,
     private val taskFlowEventMapper: TaskFlowEventMapper,
     private val taskStreamEventMapper: TaskStreamEventMapper,
-    private val priceResolver: PriceResolver,
     private val clock: Clock,
 ) {
     @Transactional
@@ -41,7 +39,7 @@ class TaskShuffleService(
             }
 
             with(taskFlowEventMapper) {
-                applicationEventPublisher.publishEvent(task.toTaskAssignedEventV1(priceAmount = priceResolver.priceToCharge))
+                applicationEventPublisher.publishEvent(task.toTaskReshuffledEventV1())
             }
         }
         if (tasks.isEmpty())

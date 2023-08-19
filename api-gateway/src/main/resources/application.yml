@@ -39,3 +39,6 @@ employee-auth-service:
 
 task-tracker-service:
   url: http://localhost:9081
+
+accounting-service:
+  url: http://localhost:9082

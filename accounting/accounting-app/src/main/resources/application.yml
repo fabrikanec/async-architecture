@@ -1,0 +1,57 @@
+info:
+  name: "@project.name@"
+  version: "@project.version@"
+  description: "@project.description@"
+  parent: "@project.parent@"
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: accounting-app
+  kafka:
+    bootstrap-servers: "localhost:9092"
+    producer:
+      transaction-id-prefix: "accounting-tx-"
+      key-serializer: >-
+        org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: >-
+        org.apache.kafka.common.serialization.ByteArraySerializer
+    consumer:
+      group-id: tackTrackerGroup
+      enable-auto-commit: false
+      isolation-level: read_committed
+      auto-offset-reset: earliest
+      key-deserializer: >-
+        org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: >-
+        org.apache.kafka.common.serialization.ByteArrayDeserializer
+  datasource:
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      pool-name: accounting-app-jpa-pool
+      max-lifetime: 100000
+      connection-timeout: 30000
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/accounting
+    username: postgres
+    password: 4y7sV96vA9wv46VR
+  flyway:
+    enabled: true
+    out-of-order: true
+
+employee-stream:
+  topic: "employee-stream"
+
+task-stream:
+  topic: "task-stream"
+
+task-flow:
+    topic: "task-flow"
+
+payment-job:
+  cron: "* */5 * * * *"
+
+server:
+  port: 9082

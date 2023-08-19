@@ -40,6 +40,8 @@ class TaskTrackerService(
             created = clock.instant(),
             assignee = assignee,
             description = addTaskRequest.description,
+            priceToCharge = priceResolver.priceToCharge,
+            priceToPay = priceResolver.priceToPay,
         )
         taskRepository.save(task)
 
@@ -48,7 +50,7 @@ class TaskTrackerService(
         }
 
         with(taskFlowEventMapper) {
-            applicationEventPublisher.publishEvent(task.toTaskAssignedEventV1(priceAmount = priceResolver.priceToCharge))
+            applicationEventPublisher.publishEvent(task.toTaskAddedEventV1())
         }
 
         return task
@@ -81,7 +83,7 @@ class TaskTrackerService(
         }
 
         with(taskFlowEventMapper) {
-            applicationEventPublisher.publishEvent(task.toTaskCompletedEventV1(priceAmount = priceResolver.priceToPay))
+            applicationEventPublisher.publishEvent(task.toTaskCompletedEventV1())
         }
     }
 
