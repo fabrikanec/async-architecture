@@ -23,6 +23,7 @@ open class Task(
     open val description: String,
     open val priceToCharge: BigDecimal,
     open val priceToPay: BigDecimal,
+    open var jiraId: String,
 ) {
 
     @Enumerated(EnumType.STRING)

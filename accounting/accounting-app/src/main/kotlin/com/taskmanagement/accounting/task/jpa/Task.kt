@@ -17,7 +17,7 @@ open class Task(
     open val created: Instant,
     open var assigneeId: UUID,
     open val description: String,
-    open var title: String,
+    open var jiraId: String?,
     open val priceToCharge: BigDecimal,
     open val priceToPay: BigDecimal,
 ) {

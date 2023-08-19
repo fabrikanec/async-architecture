@@ -13,10 +13,9 @@ alter table task
 ---------------------------------------------------
 
 alter table task
-    add column title varchar;
+    add column jira_id varchar;
 update task
-set title = '[DEFAULT]',
+set jira_id = '[DEFAULT]';
 
-    alter table task
-alter
-column title set not null;
+alter table task
+    alter column jira_id set not null;

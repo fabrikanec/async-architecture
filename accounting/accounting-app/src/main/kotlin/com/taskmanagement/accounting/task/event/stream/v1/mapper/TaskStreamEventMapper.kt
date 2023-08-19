@@ -17,7 +17,7 @@ object TaskStreamEventMapper {
             assigneeId = assigneeId,
             priceToCharge = priceToCharge,
             priceToPay = priceToPay,
-            title = null,
+            jiraId = null,
         )
 
     fun TaskStreamEventV2.toEntity(): Task =
@@ -30,6 +30,6 @@ object TaskStreamEventMapper {
             assigneeId = assigneeId,
             priceToCharge = priceToCharge,
             priceToPay = priceToPay,
-            title = title,
+            jiraId = title,
         )
 }

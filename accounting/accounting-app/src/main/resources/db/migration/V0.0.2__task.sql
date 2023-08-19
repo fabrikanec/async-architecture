@@ -2,7 +2,7 @@ create table task
 (
     id          uuid primary key,
     description varchar,
-    title       varchar,
+    jira_id     varchar,
     status      varchar,
     employee_id uuid,
     created     timestamp without time zone not null,
