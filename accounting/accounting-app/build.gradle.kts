@@ -19,6 +19,7 @@ dependencies {
     implementation(kotlin("stdlib"))
 
     api(project(":accounting:accounting-api"))
+    api(project(":async-api:payment-async-common"))
     api(project(":async-api:employee-async-common"))
     api(project(":async-api:task-async-common"))
 

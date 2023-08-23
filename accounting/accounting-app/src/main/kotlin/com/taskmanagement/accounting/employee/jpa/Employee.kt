@@ -8,7 +8,6 @@ import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.TypeDefs
 import java.math.BigDecimal
-import java.math.BigInteger
 import java.time.Instant
 import java.util.UUID
 import javax.persistence.Entity
@@ -22,7 +21,7 @@ open class Employee protected constructor(
     @Id
     open val id: UUID = UUID.randomUUID(),
     open val created: Instant,
-    open val balance: BigDecimal,
+    open var balance: BigDecimal,
 ) {
 
     open var updated: Instant = created

@@ -4,7 +4,6 @@ import com.taskmanagement.accounting.task.event.stream.v1.mapper.TaskStreamEvent
 import com.taskmanagement.accounting.task.jpa.Task
 import com.taskmanagement.accounting.task.jpa.TaskRepository
 import com.taskmanagement.task.event.stream.TaskStreamEventV1
-import com.taskmanagement.accounting.task.event.stream.v2.mapper.TaskStreamEventV2Mapper
 import org.springframework.context.event.EventListener
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component

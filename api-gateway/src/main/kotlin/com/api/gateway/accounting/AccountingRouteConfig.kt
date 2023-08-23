@@ -1,7 +1,6 @@
 package com.api.gateway.accounting
 
 import com.api.gateway.config.properties.AccountingServiceConfigurationProperties
-import com.api.gateway.config.properties.TaskTrackerServiceConfigurationProperties
 import com.api.gateway.userinfo.UserInfoGatewayFilterFactory
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.gateway.route.RouteLocator
@@ -11,7 +10,6 @@ import org.springframework.cloud.gateway.route.builder.routes
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod.GET
-import org.springframework.http.HttpMethod.POST
 
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(
@@ -37,7 +35,7 @@ class AccountingRouteConfig(
                         create()
                     }
                 }
-                path("/balance/**") and method(GET,)
+                path("/balances/**") and method(GET,)
                 filters {
                     with(userInfoGatewayFilterFactory) {
                         create()

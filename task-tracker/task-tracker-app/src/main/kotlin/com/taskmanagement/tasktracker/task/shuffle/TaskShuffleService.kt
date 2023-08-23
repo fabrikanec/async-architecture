@@ -5,7 +5,6 @@ import com.taskmanagement.tasktracker.task.event.flow.v1.mapper.TaskFlowEventMap
 import com.taskmanagement.tasktracker.task.event.stream.v1.mapper.TaskStreamEventMapper
 import com.taskmanagement.tasktracker.task.jpa.TaskRepository
 import com.taskmanagement.tasktracker.task.jpa.TaskStatus
-import com.taskmanagement.tasktracker.task.price.PriceResolver
 import com.taskmanagement.tasktracker.task.shuffle.jpa.TaskShuffleRepository
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service

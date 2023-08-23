@@ -15,6 +15,8 @@ open class TaskFlowEventListener(
         containerFactory = taskFlowKafkaListenerContainerFactoryName,
     )
     open fun consume(event: TaskFlowEvent) {
+        // TODO add dlq strategy: N retry, after that event should be send to dlt(dead-letter topic)
+
         applicationEventPublisher.publishEvent(event)
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.math.BigDecimal
 
 @RestController
-@RequestMapping("/balance")
+@RequestMapping("/balances")
 class BalanceController(
     private val employeeRepository: EmployeeRepository,
 ) {
@@ -21,5 +21,4 @@ class BalanceController(
         pageable: Pageable,
     ): BigDecimal =
         employeeRepository.getByIdOrThrow(user.id).balance
-
 }

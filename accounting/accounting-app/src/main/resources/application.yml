@@ -50,6 +50,9 @@ task-stream:
 task-flow:
     topic: "task-flow"
 
+payment-flow:
+  topic: "payment-flow"
+
 payment-job:
   cron: "* */5 * * * *"
 

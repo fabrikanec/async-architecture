@@ -5,7 +5,6 @@ create table payment
     income      numeric not null,
     outcome     numeric not null,
     description varchar not null,
-    status      varchar not null,
-    create_date timestamp with time zone,
+    created timestamp with time zone,
     CONSTRAINT operation_history_on_employee FOREIGN KEY (employee_id) REFERENCES employee (id)
 );

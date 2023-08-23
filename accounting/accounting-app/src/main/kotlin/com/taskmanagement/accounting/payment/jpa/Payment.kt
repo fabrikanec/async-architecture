@@ -5,8 +5,6 @@ import java.math.BigDecimal
 import java.time.Instant
 import java.util.UUID
 import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
 import javax.persistence.Id
 
 @Entity
@@ -20,9 +18,6 @@ open class Payment(
     open val description: String,
 ) {
 
-    @Enumerated(EnumType.STRING)
-    open var status: PaymentStatus = PaymentStatus.PENDING
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
@@ -34,5 +29,4 @@ open class Payment(
 
     override fun toString(): String =
         this::class.simpleName + "(id = $id)"
-
 }

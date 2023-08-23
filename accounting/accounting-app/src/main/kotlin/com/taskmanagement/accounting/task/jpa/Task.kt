@@ -39,7 +39,6 @@ open class Task(
     override fun toString(): String =
         this::class.simpleName + "(id = $id)"
 
-
     companion object {
         operator fun invoke(
             id: UUID = UUID.randomUUID(),

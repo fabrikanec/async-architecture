@@ -15,4 +15,3 @@ data class TaskStreamEventV2(
     val priceToPay: BigDecimal,
     val jiraId: String,
 ) : TaskStreamEvent
-

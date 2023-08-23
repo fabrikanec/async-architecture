@@ -11,6 +11,15 @@ import javax.persistence.EntityNotFoundException
 interface EmployeeRepository :
     JpaRepository<Employee, UUID> {
 
+    @Query(
+        """
+            select count(*) from employee 
+            where balance < 0
+            """,
+        nativeQuery = true,
+    )
+    fun negativeBalanceCount(): Int
+
     companion object {
         fun EmployeeRepository.getByIdOrThrow(id: UUID) =
             findByIdOrNull(id) ?: throw EntityNotFoundException("Employee with id = [$id] not found")

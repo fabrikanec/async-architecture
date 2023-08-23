@@ -1,13 +1,15 @@
 package com.taskmanagement.accounting.payment.execution
 
+import com.taskmanagement.accounting.payment.usecase.ExecutePaymentUseCase
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.Clock
 
 @Service
-class PaymentExecutionService {
+class PaymentExecutionService(
+    private val executePaymentUseCase: ExecutePaymentUseCase,
+) {
     @Transactional
     fun executePayment() {
-        TODO()
+        executePaymentUseCase()
     }
 }

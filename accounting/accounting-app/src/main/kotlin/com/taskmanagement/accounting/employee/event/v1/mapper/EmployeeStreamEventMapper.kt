@@ -1,7 +1,7 @@
 package com.taskmanagement.accounting.employee.event.v1.mapper
 
-import com.taskmanagement.employee.event.stream.EmployeeStreamEventV1
 import com.taskmanagement.accounting.employee.jpa.Employee
+import com.taskmanagement.employee.event.stream.EmployeeStreamEventV1
 import org.springframework.stereotype.Component
 
 @Component
