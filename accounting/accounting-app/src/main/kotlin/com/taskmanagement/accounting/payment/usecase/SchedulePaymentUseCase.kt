@@ -12,7 +12,7 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 
 @Component
-class ExecutePaymentUseCase(
+class SchedulePaymentUseCase(
     private val paymentRepository: PaymentRepository,
     private val applicationEventPublisher: ApplicationEventPublisher,
     private val paymentFlowEventMapper: PaymentFlowEventMapper,
@@ -21,7 +21,7 @@ class ExecutePaymentUseCase(
     @Transactional
     operator fun invoke() {
         val timeFrom = LocalDate.now().atStartOfDay().minusHours(1)
-        val payments = paymentRepository.findPaymentsAggregateToExecute(
+        val payments = paymentRepository.findPaymentsAggregateToTransfer(
             fromDate = timeFrom.toInstant(ZoneOffset.UTC),
         ).map {
             it.toPayment()

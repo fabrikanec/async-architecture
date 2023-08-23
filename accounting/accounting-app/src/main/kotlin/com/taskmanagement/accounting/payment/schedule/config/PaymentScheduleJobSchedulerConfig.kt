@@ -1,7 +1,7 @@
-package com.taskmanagement.accounting.payment.execution.config
+package com.taskmanagement.accounting.payment.schedule.config
 
-import com.taskmanagement.accounting.payment.execution.config.properties.PaymentExecutionJobProperties
-import com.taskmanagement.accounting.payment.execution.job.PaymentExecutionJob
+import com.taskmanagement.accounting.payment.schedule.config.properties.PaymentScheduleJobProperties
+import com.taskmanagement.accounting.payment.schedule.job.SchedulePaymentJob
 import com.taskmanagement.tasktracker.util.schedule.scheduledMethodRunnable
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -11,11 +11,11 @@ import org.springframework.scheduling.support.CronTrigger
 
 @Configuration
 @EnableConfigurationProperties(
-    PaymentExecutionJobProperties::class,
+    PaymentScheduleJobProperties::class,
 )
-class PaymentExecutionJobSchedulerConfig(
-    private val paymentExecutionJobProperties: PaymentExecutionJobProperties,
-    private val paymentExecutionJob: PaymentExecutionJob,
+class PaymentScheduleJobSchedulerConfig(
+    private val paymentScheduleJobProperties: PaymentScheduleJobProperties,
+    private val schedulePaymentJob: SchedulePaymentJob,
 ) {
 
     @Bean
@@ -26,15 +26,15 @@ class PaymentExecutionJobSchedulerConfig(
             initialize()
             schedule(
                 scheduledMethodRunnable(
-                    paymentExecutionJob,
-                    PaymentExecutionJob::run,
+                    schedulePaymentJob,
+                    SchedulePaymentJob::run,
                 ),
-                CronTrigger(paymentExecutionJobProperties.cron),
+                CronTrigger(paymentScheduleJobProperties.cron),
             )
         }
 
     companion object {
         private const val DEFAULT_POOL_SIZE = 10
-        private const val POOL_THREAD_PREFIX = "payment-execution-job-pool-"
+        private const val POOL_THREAD_PREFIX = "payment-schedule-job-pool-"
     }
 }

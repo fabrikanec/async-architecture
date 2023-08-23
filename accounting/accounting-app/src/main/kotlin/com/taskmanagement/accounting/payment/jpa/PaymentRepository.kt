@@ -38,7 +38,7 @@ interface PaymentRepository :
         """,
         nativeQuery = true,
     )
-    fun findPaymentsAggregateToExecute(fromDate: Instant): List<PaymentAggregate>
+    fun findPaymentsAggregateToTransfer(fromDate: Instant): List<PaymentAggregate>
 
     fun findAllByEmployeeId(employeeId: UUID, pageable: Pageable): Page<Payment>
 }
