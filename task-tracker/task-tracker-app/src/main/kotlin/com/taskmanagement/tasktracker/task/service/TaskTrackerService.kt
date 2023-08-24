@@ -46,6 +46,7 @@ class TaskTrackerService(
             description = addTaskRequest.description,
             priceToCharge = priceResolver.priceToCharge,
             priceToPay = priceResolver.priceToPay,
+            jiraId = addTaskRequest.jiraId,
         )
 
         taskRepository.save(task)
