@@ -1,7 +1,6 @@
 package com.taskmanagement.accounting.payment.schedule.config
 
 import com.taskmanagement.accounting.payment.schedule.config.properties.PaymentScheduleJobProperties
-import com.taskmanagement.accounting.payment.schedule.job.SchedulePaymentJob
 import com.taskmanagement.tasktracker.util.schedule.scheduledMethodRunnable
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean

@@ -1,0 +1,12 @@
+{
+     "type": "record",
+     "namespace": "com.taskmanagement.employee",
+     "name": "EmployeeStreamEventV1",
+     "version": "1",
+     "fields": [
+       { "name": "id", "type": "uuid", "doc": "primary key id" },
+       { "name": "roles", "type": "set", "doc": "employee roles" },
+       { "name": "created", "type": "string", "doc": "created field" },
+       { "name": "updated", "type": "string", "doc": "updated field" },
+     ]
+}

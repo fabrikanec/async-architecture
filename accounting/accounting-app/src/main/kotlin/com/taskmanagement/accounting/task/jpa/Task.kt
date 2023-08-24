@@ -1,6 +1,5 @@
 package com.taskmanagement.accounting.task.jpa
 
-import com.taskmanagement.accounting.payment.jpa.Payment
 import org.hibernate.Hibernate
 import java.math.BigDecimal
 import java.time.Instant

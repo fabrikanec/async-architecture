@@ -1,3 +1,4 @@
+import com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask
 import com.palantir.gradle.docker.DockerExtension
 import fr.brouillard.oss.gradle.plugins.JGitverPluginExtensionBranchPolicy
 import fr.brouillard.oss.jgitver.Strategies
@@ -31,6 +32,9 @@ val mockkVersion: String by project
 val springMockkVersion: String by project
 val striktVersion: String by project
 
+val avroVersion: String by project
+val avroSerializerVersion: String by project
+
 plugins {
     kotlin("jvm") apply false
     kotlin("plugin.spring") apply false
@@ -42,7 +46,7 @@ plugins {
     id("com.palantir.git-version") apply false
     id("com.palantir.docker") apply false
     id("com.gorylenko.gradle-git-properties") apply false
-
+    id("com.github.davidmc24.gradle.plugin.avro") apply false
     id("fr.brouillard.oss.gradle.jgitver")
     id("jacoco")
     `maven-publish`
@@ -75,8 +79,13 @@ allprojects {
     version = "1.0.0-SNAPSHOT"
 
     repositories {
+        maven {
+            url = uri("https://dl.bintray.com/gradle/gradle-plugins")
+        }
+        gradlePluginPortal()
         mavenCentral()
         mavenLocal()
+
     }
 }
 
@@ -124,6 +133,18 @@ subprojects {
         buildUponDefaultConfig = true
     }
 
+    tasks.withType<com.github.davidmc24.gradle.plugin.avro.GenerateAvroProtocolTask> {
+        source("src/main/resources/avro")
+        setOutputDir(file("build/generated-avro-main-avpr"))
+    }
+
+    tasks.withType<com.github.davidmc24.gradle.plugin.avro.GenerateAvroSchemaTask> {
+        dependsOn
+        setOutputDir(file("build/generated-avro-main-avpr"))
+        source(file("build/generated-avro-main-avpr"))
+        setOutputDir(file("build/generated-avro-main-avsc"))
+    }
+
     the<DependencyManagementExtension>().apply {
         imports {
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
@@ -140,6 +161,8 @@ subprojects {
             dependency("org.springdoc:springdoc-openapi-security:$springDocOpenApiVersion")
             dependency("org.springdoc:springdoc-openapi-kotlin:$springDocOpenApiVersion")
             dependency("org.springdoc:springdoc-openapi-data-rest:$springDocOpenApiVersion")
+            dependency("io.confluent:kafka-avro-serializer:$avroSerializerVersion")
+            dependency("org.apache.avro:avro:$avroVersion")
 
             dependency("org.springframework.security.oauth:spring-security-oauth2:$springSecurityOauth2Version")
             dependency("org.springframework.security:spring-security-core:$springSecurityCoreVersion")

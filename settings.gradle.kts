@@ -9,6 +9,7 @@ pluginManagement {
     val palantirGitVersion: String by settings
     val jGitVerVersion: String by settings
     val openapiGeneratorVersion: String by settings
+    val avroGeneratorVersion: String by settings
 
     plugins {
         kotlin("jvm") version kotlinVersion apply false
@@ -26,6 +27,7 @@ pluginManagement {
         id("jacoco")
         id("fr.brouillard.oss.gradle.jgitver") version jGitVerVersion
         id("org.openapi.generator") version openapiGeneratorVersion apply false
+        id("com.github.davidmc24.gradle.plugin.avro") version avroGeneratorVersion apply false
     }
 
     repositories {
@@ -47,6 +49,7 @@ include(
     "async-api:payment-async-common",
     "async-api:employee-async-api",
     "async-api:employee-async-common",
+    "async-api:employee-async-avro",
     "async-api:task-async-api",
     "async-api:task-async-common",
     "employee-auth:employee-auth-api",

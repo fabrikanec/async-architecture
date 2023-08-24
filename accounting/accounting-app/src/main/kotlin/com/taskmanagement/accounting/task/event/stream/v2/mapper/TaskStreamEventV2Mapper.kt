@@ -2,7 +2,6 @@ package com.taskmanagement.accounting.task.event.stream.v2.mapper
 
 import com.taskmanagement.accounting.task.jpa.Task
 import com.taskmanagement.accounting.task.jpa.TaskStatus
-import com.taskmanagement.task.event.stream.TaskStreamEventV2
 import org.springframework.stereotype.Component
 
 @Component
