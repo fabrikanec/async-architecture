@@ -35,12 +35,20 @@ class TaskTrackerService(
 ) {
     @Transactional
     fun add(addTaskRequest: AddTaskRequest): Task {
+        require(!addTaskRequest.description.contains("[\\[\\]]")) {
+            "Invalid description: should not contain '[' and ']'"
+        }
+
         val assignee = employeeRepository.getByIdOrThrow(addTaskRequest.assignee)
         val task = Task(
             created = clock.instant(),
             assignee = assignee,
             description = addTaskRequest.description,
+            priceToCharge = priceResolver.priceToCharge,
+            priceToPay = priceResolver.priceToPay,
+            jiraId = addTaskRequest.jiraId,
         )
+
         taskRepository.save(task)
 
         with(taskStreamEventMapper) {
@@ -48,7 +56,7 @@ class TaskTrackerService(
         }
 
         with(taskFlowEventMapper) {
-            applicationEventPublisher.publishEvent(task.toTaskAssignedEventV1(priceAmount = priceResolver.priceToCharge))
+            applicationEventPublisher.publishEvent(task.toTaskAddedEventV1())
         }
 
         return task
@@ -72,6 +80,7 @@ class TaskTrackerService(
         }
 
         task.status = TaskStatus.COMPLETED
+        task.updated = clock.instant()
 
         taskRepository.save(task)
 
@@ -80,7 +89,7 @@ class TaskTrackerService(
         }
 
         with(taskFlowEventMapper) {
-            applicationEventPublisher.publishEvent(task.toTaskCompletedEventV1(priceAmount = priceResolver.priceToPay))
+            applicationEventPublisher.publishEvent(task.toTaskCompletedEventV1())
         }
     }
 

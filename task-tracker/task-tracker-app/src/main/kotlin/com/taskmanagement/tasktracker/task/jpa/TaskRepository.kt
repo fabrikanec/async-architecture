@@ -42,9 +42,9 @@ interface TaskRepository :
     companion object {
 
         fun TaskRepository.getByIdOrThrow(id: UUID) =
-            findByIdOrNull(id) ?: throw EntityNotFoundException("Employee with id = [$id] not found")
+            findByIdOrNull(id) ?: throw EntityNotFoundException("Task with id = [$id] not found")
 
         fun TaskRepository.getByIdWithLockOrThrow(id: UUID) =
-            findByIdOrNull(id) ?: throw EntityNotFoundException("Employee with id = [$id] not found")
+            findByIdOrNull(id) ?: throw EntityNotFoundException("Task with id = [$id] not found")
     }
 }

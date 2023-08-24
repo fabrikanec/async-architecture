@@ -2,6 +2,7 @@ package com.taskmanagement.tasktracker.task.jpa
 
 import com.taskmanagement.tasktracker.employee.jpa.Employee
 import org.hibernate.Hibernate
+import java.math.BigDecimal
 import java.time.Instant
 import java.util.UUID
 import javax.persistence.Entity
@@ -20,6 +21,9 @@ open class Task(
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     open var assignee: Employee,
     open val description: String,
+    open val priceToCharge: BigDecimal,
+    open val priceToPay: BigDecimal,
+    open var jiraId: String,
 ) {
 
     @Enumerated(EnumType.STRING)

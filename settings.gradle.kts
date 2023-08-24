@@ -40,7 +40,11 @@ rootProject.name = "task-management-system"
 include(
     "task-tracker:task-tracker-api",
     "task-tracker:task-tracker-app",
+    "accounting:accounting-api",
+    "accounting:accounting-app",
     "api-gateway",
+    "async-api:payment-async-api",
+    "async-api:payment-async-common",
     "async-api:employee-async-api",
     "async-api:employee-async-common",
     "async-api:task-async-api",

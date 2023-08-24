@@ -14,5 +14,7 @@ object TaskStreamEventMapper {
             updated = updated,
             status = status.name,
             assigneeId = assignee.id,
+            priceToPay = priceToPay,
+            priceToCharge = priceToCharge,
         )
 }

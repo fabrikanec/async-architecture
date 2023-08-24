@@ -1,13 +1,10 @@
 package com.taskmanagement.task.event.flow
 
-import java.math.BigInteger
 import java.time.Instant
 import java.util.UUID
 
-data class TaskAssignedEventV1(
+data class TaskReshuffledEventV1(
     val id: UUID,
-    val assignee: UUID,
-    val description: String,
+    val assigneeId: UUID,
     val created: Instant,
-    val priceAmount: BigInteger,
 ) : TaskFlowEvent
